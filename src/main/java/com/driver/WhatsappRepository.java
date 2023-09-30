@@ -28,11 +28,9 @@ public class WhatsappRepository {
         userMessages.put(user,new ArrayList<>());
     }
 
-    public boolean checkUserExist(String name, String mobile) {
-        for(User user:userList){
-            if(user.getName().equals(name) && user.getMobile().equals(mobile)){
-                return true;
-            }
+    public boolean checkUserExist(User user) {
+        if(userList.contains(user)){
+            return true;
         }
         return false;
     }

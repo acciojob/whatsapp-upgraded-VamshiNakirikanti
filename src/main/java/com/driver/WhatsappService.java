@@ -6,13 +6,13 @@ import java.util.List;
 public class WhatsappService {
     WhatsappRepository whatsappRepository = new WhatsappRepository();
     public String createUser(String name, String mobile) throws Exception {
-        boolean userExist = whatsappRepository.checkUserExist(name,mobile);
-        if(userExist){
-            throw new Exception("User already exists");
-        }
         User user = new User();
         user.setName(name);
         user.setMobile(mobile);
+        boolean userExist = whatsappRepository.checkUserExist(user);
+        if(userExist){
+            throw new Exception("User already exists");
+        }
         whatsappRepository.addUser(user);
         return "SUCCESS";
     }
@@ -93,6 +93,9 @@ public class WhatsappService {
     }
 
     public int removeUser(User user) throws Exception {
+        if(user==null){
+            throw new Exception("User not found");
+        }
         Group group = whatsappRepository.getGroupFromUser(user);
         if(group==null){
             throw new Exception("User not found");
